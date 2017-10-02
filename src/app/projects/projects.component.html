@@ -1,0 +1,10 @@
+<div class="content">
+  <div class="main-content">
+    <h2>Wiki Project Explorer <small>({{(modelService.getProjects$() | async)?.length}} projects)</small></h2>
+    <ul class="list-items">
+      <li *ngFor="let project of modelService.getProjects$() | async" class="list-item" (click)="selectProject(project)">
+        {{project.name}} <span *ngIf="modelService.isSubscribedToProject(project.name)">*</span>
+      </li>
+    </ul>
+  </div>
+</div>

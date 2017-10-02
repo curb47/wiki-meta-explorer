@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="main-content">
+    <div class="header">
+      <button class="back-button" (click)="goBack()">Back</button>
+      <h3 class="title" (click)="clearProjectUpdated()"><i>{{modelService.selectedProject.name}}</i> Pages<small> ({{(modelService.getProjectPageList$(modelService.selectedProject.name) | async)?.length}} pages)</small> <span *ngIf="projectUpdated">*</span></h3>
+      <button class="sub-button" (click)="modelService.subscribeToProject(modelService.selectedProject.name)" *ngIf="!modelService.isSubscribedToProject(modelService.selectedProject.name)">Subscribe</button>
+      <button class="sub-button" (click)="modelService.unsubscribeToProject()" *ngIf="modelService.isSubscribedToProject(modelService.selectedProject.name)">Unsubscribe</button>
+    </div>
+    <div class="project-details">
+      <ul class="list-items">
+        <li *ngFor="let page of modelService.getProjectPageList$(modelService.selectedProject.name) | async" (click)="selectPage(page)" class="list-item">
+          {{page.title}} <span *ngIf="modelService.isSubscribedToPage(page.id)">*</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

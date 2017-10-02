@@ -1,0 +1,35 @@
+<div class="content">
+  <div class="main-content">
+    <div class="header" *ngIf="modelService.selectedPage">
+      <button class="back-button" (click)="goBack()">Back</button>
+      <h3 class="title" (click)="clearPageUpdated()"><i>{{modelService.selectedPage.title}}</i> <span *ngIf="pageUpdated">*</span></h3>
+      <button class="sub-button" (click)="modelService.subscribeToPage(modelService.selectedPage.id)" *ngIf="!modelService.isSubscribedToPage(modelService.selectedPage.id)">Subscribe</button>
+      <button class="sub-button" (click)="modelService.unsubscribeToPage()" *ngIf="modelService.isSubscribedToPage(modelService.selectedPage.id)">Unsubscribe</button>
+    </div>
+    <ul class="list-items">
+      <li class="list-item">ID: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.id}}</li>
+      <li class="list-item">Title: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.title}}</li>
+      <li class="list-item">Language: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.language}}</li>
+      <li class="list-item">Language Direction: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.languageDir}}</li>
+      <li class="list-item">Language HTML Code: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.languageHtmlCode}}</li>
+      <li class="list-item">Last Revision ID: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.lastRevisionId}}</li>
+      <li class="list-item">Length: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.length}}</li>
+      <li class="list-item">Content Model: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.contentModel}}</li>
+      <li class="list-item">NS: {{(modelService.getPageDetail$(modelService.selectedPage.id) | async)?.ns}}</li>
+    </ul>
+    <div>
+      <div>Revisions</div>
+      <ul>
+        <li *ngFor="let revision of (modelService.getPageDetail$(modelService.selectedPage.id) | async)?.revisions">
+          <div>ID: {{revision.id}}</div>
+          <div>Timestamp: {{revision.timestamp}}</div>
+          <div>User: {{revision.user}}</div>
+          <div>Comment: {{revision.comment}}</div>
+          <div>Parent ID: {{revision.parentId}}</div>
+          <div>Minor: {{revision.minor}}</div>
+          <div>Anon: {{revision.anon}}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
